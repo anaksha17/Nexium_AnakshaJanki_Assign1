@@ -1,18 +1,19 @@
 "use client";
 import { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
+
 interface Quote {
   topic: string;
   quote: string;
 }
+
 interface QuoteFormProps {
-  onQuotesUpdate: Dispatch<SetStateAction<any[]>>;
+  onQuotesUpdate: Dispatch<SetStateAction<Quote[]>>;
   onTopicChange: Dispatch<SetStateAction<string>>;
   onRandomModeChange: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function QuoteForm({ onQuotesUpdate, onTopicChange, onRandomModeChange }: QuoteFormProps) {
-  const [quotes, setQuotes] = useState<Quote[]>([]);
   const [topic, setTopic] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,15 +35,12 @@ export default function QuoteForm({ onQuotesUpdate, onTopicChange, onRandomModeC
         .slice(0, 3);
       if (filteredQuotes.length === 0) {
         const randomQuotes = dataFromJson.filter((q: Quote) => q.quote.trim()).slice(0, 3);
-        setQuotes(randomQuotes);
         onQuotesUpdate(randomQuotes);
       } else {
-        setQuotes(filteredQuotes);
         onQuotesUpdate(filteredQuotes);
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      setQuotes([]);
       onQuotesUpdate([]);
     } finally {
       setIsLoading(false);
@@ -64,11 +62,9 @@ export default function QuoteForm({ onQuotesUpdate, onTopicChange, onRandomModeC
       const shuffledQuotes = dataFromJson.sort(() => 0.5 - Math.random());
       const randomQuotes = shuffledQuotes.slice(0, 3);
       
-      setQuotes(randomQuotes);
       onQuotesUpdate(randomQuotes);
     } catch (error) {
       console.error("Fetch Error:", error);
-      setQuotes([]);
       onQuotesUpdate([]);
     } finally {
       setIsLoading(false);

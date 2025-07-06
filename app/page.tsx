@@ -1,12 +1,11 @@
 "use client";
+import { useState } from "react";
+import QuoteForm from "./QuoteForm";
+
 interface Quote {
   topic: string;
   quote: string;
 }
-import { useState } from "react";
-import QuoteForm from "./QuoteForm";
-
-
 
 const topicThemes = {
   motivation: {
@@ -136,7 +135,7 @@ export default function Home() {
   const theme = getCurrentTheme();
 
   return (
-   <div className={`min-h-screen bg-gradient-to-br from-orange-200 via-orange-300 to-gray-300 relative overflow-hidden`}>
+    <div className={`min-h-screen bg-gradient-to-br from-orange-200 via-orange-300 to-gray-300 relative overflow-hidden`}>
       <div className="absolute inset-0 opacity-40">
         <div className={`absolute inset-0 bg-gradient-to-r ${theme.bgGradient}`}></div>
       </div>
@@ -204,11 +203,11 @@ export default function Home() {
                         {quoteTheme.icon}
                       </div>
                       <div className="absolute top-4 right-4 text-gray-600/60 text-4xl font-serif leading-none">
-                        "
+                        &quot;
                       </div>
                       <div className="relative z-10 mt-12">
                         <blockquote className="text-lg text-gray-800 leading-relaxed font-medium mb-6 italic">
-                          "{text}"
+                          &quot;{text}&quot;
                         </blockquote>
                         <div className="flex items-center justify-between">
                           <cite className="text-gray-700 font-semibold text-sm uppercase tracking-wider">
