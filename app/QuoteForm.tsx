@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
-
+interface Quote {
+  topic: string;
+  quote: string;
+}
 interface QuoteFormProps {
   onQuotesUpdate: Dispatch<SetStateAction<any[]>>;
   onTopicChange: Dispatch<SetStateAction<string>>;
@@ -9,7 +12,7 @@ interface QuoteFormProps {
 }
 
 export default function QuoteForm({ onQuotesUpdate, onTopicChange, onRandomModeChange }: QuoteFormProps) {
-  const [quotes, setQuotes] = useState([]);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
   const [topic, setTopic] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,10 +30,10 @@ export default function QuoteForm({ onQuotesUpdate, onTopicChange, onRandomModeC
       const dataFromJson = await response.json();
       console.log("Raw Data:", dataFromJson);
       const filteredQuotes = dataFromJson
-        .filter((quote: any) => quote.topic.toLowerCase().trim() === topic.toLowerCase().trim())
+        .filter((quote: Quote) => quote.topic.toLowerCase().trim() === topic.toLowerCase().trim())
         .slice(0, 3);
       if (filteredQuotes.length === 0) {
-        const randomQuotes = dataFromJson.filter((q: any) => q.quote.trim()).slice(0, 3);
+        const randomQuotes = dataFromJson.filter((q: Quote) => q.quote.trim()).slice(0, 3);
         setQuotes(randomQuotes);
         onQuotesUpdate(randomQuotes);
       } else {

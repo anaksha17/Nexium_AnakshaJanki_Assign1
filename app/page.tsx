@@ -1,12 +1,12 @@
 "use client";
-
-import { useState } from "react";
-import QuoteForm from "./QuoteForm";
-
 interface Quote {
   topic: string;
   quote: string;
 }
+import { useState } from "react";
+import QuoteForm from "./QuoteForm";
+
+
 
 const topicThemes = {
   motivation: {
